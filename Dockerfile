@@ -1,4 +1,4 @@
-FROM alpine:latest AS build
+FROM arm32v6/alpine:3.11.3 AS build
 RUN apk update \
     && apk upgrade \
     && apk add --no-cache build-base gcc abuild binutils cmake git \
@@ -8,7 +8,7 @@ RUN apk update \
     && make \
     && chmod +x bin/vlmcsd
 
-FROM alpine:latest
+FROM arm32v6/alpine:3.11.3
 WORKDIR /usr/local/bin
 COPY --from=build /vlmcsd/bin/vlmcsd .
 RUN adduser -D vlmcsd 
